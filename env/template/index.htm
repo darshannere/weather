@@ -1,0 +1,291 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Weather App</title>
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700&display=swap" rel="stylesheet">
+  <link href="{% static 'site.css' %}" rel="stylesheet">
+  <style>
+    body {
+      background-image: url({{bgp}});
+    }
+    input[type=text], select {
+        width: 100%;
+        padding: 6px 20px;
+        margin: 8px 0;
+        display: inline-block;
+        border: 1px solid #ccc;
+        border-radius: 10px;
+        box-sizing: border-box;
+      }
+    </style>
+</head>
+<body  >
+  
+<main class="main-container">
+  <form action='searchresult' method="post" >
+    {%csrf_token%}
+    <input type="text"  name="searchcity" id="searchcity" placeholder="enter city">
+    <input type="submit" >
+  </form>
+    
+
+  <div class="location-and-date">
+    <h2 class="location-and-date__location">
+      {{city}}{{locc}}
+
+    </h2>
+    <div>{{date}}    {{}}</div>
+    <div> 
+        </div>
+        <form></div>
+  </div>
+
+ 
+  <div class="current-temperature">
+    <div class="current-temperature__icon-container">
+      <img src="{{current_pic}}" class="current-temperature__icon" alt="">
+    </div>
+    <div class="current-temperature__content-container">
+      <div class="current-temperature__value">{{current_temp}}&deg;</div>
+      <div class="current-temperature__summary">{{condition}}</div>
+    </div>
+  </div>
+
+
+  <div class="current-stats">
+    <div>
+      <div class="current-stats__value">{{c_max_temp}}&deg;</div>
+      <div class="current-stats__label">High</div>
+      <div class="current-stats__value">{{c_min_temp}}&deg;</div>
+      <div class="current-stats__label">Low</div>
+    </div>
+    <div>
+      <div class="current-stats__value">{{current_wind}}mph</div>
+      <div class="current-stats__label">Wind</div>
+      <div class="current-stats__value">{{current_rain}}%</div>
+      <div class="current-stats__label">Rain</div>
+    </div>
+    <div>
+      <div class="current-stats__value">{{c_sunrise}}</div>
+      <div class="current-stats__label">Sunrise</div>
+      <div class="current-stats__value">{{c_sunset}}</div>
+      <div class="current-stats__label">Sunset</div>
+    </div>
+  </div>
+
+  <div class="weather-by-hour">
+    <h2 class="weather-by-hour__heading">Today's weather</h2>
+    <div class="weather-by-hour__container">
+      <div class="weather-by-hour__item">
+        <div class="weather-by-hour__hour">3am</div>
+        <img src="{{c_3am_pic}}" alt={{c_3am_text}}>
+        <div>{{c_3am_temp}}&deg;</div>
+      </div>
+      <div class="weather-by-hour__item">
+        <div class="weather-by-hour__hour">6am</div>
+        <img src="{{c_6am_pic}}" alt={{c_6am_text}}>
+        <div>{{c_6am_temp}}&deg;</div>
+      </div>
+      <div class="weather-by-hour__item">
+        <div class="weather-by-hour__hour">9am</div>
+        <img src="{{c_9am_pic}}" alt={{c_9am_text}}>
+        <div>{{c_12am_temp}}&deg;</div>
+      </div>
+      <div class="weather-by-hour__item">
+        <div class="weather-by-hour__hour">12pm</div>
+        <img src="{{c_12am_pic}}" alt="{{c_12pm_text}}">
+        <div>{{c_3pm_temp}}&deg;</div>
+      </div>
+      <div class="weather-by-hour__item">
+        <div class="weather-by-hour__hour">3pm</div>
+        <img src="{{c_3pm_pic}}" alt="{{c_3pm_text}}">
+        <div>{{c_6pm_temp}}&deg;</div>
+      </div>
+      <div class="weather-by-hour__item">
+        <div class="weather-by-hour__hour">6pm</div>
+        <img src="{{c_6pm_pic}}" alt="{{c_6pm_text}}">
+        <div>{{c_9pm_temp}}&deg;</div>
+      </div>
+      <div class="weather-by-hour__item">
+        <div class="weather-by-hour__hour">9pm</div>
+        <img src="{{c_9pm_pic}}" alt="{{c_9pm_text}}">
+        <div>{{c_6am_temp}}&deg;</div>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="next-5-days">
+    <h2 class="next-5-days__heading">Next 5 days</h2>
+    <div class="next-5-days__container">
+
+      <div class="next-5-days__row">
+
+        <div class="next-5-days__date">
+          
+          <div class="next-5-days__label">{{day1_date}}</div>
+        </div>
+
+        <div class="next-5-days__low">
+          {{day1_low}}&deg;
+          <div class="next-5-days__label">Low</div>
+        </div>
+
+        <div class="next-5-days__high">
+          {{day1_high}}&deg;
+          <div class="next-5-days__label">High</div>
+        </div>
+
+        <div class="next-5-days__icon">
+          <img src="{{day1_pic}}" alt="{{day1_text}}">
+        </div>
+        <div class="next-5-days__icon">
+          {{day1_text}}
+        </div>
+
+        <div class="next-5-days__rain">
+          {{day1_rain}}%
+          <div class="next-5-days__label">Rain</div>
+        </div>
+
+        
+
+      </div>
+      
+      <div class="next-5-days__row">
+
+        <div class="next-5-days__date">
+          <div class="next-5-days__label">{{day2_date}}</div>
+        </div>
+
+        <div class="next-5-days__low">
+          {{day2_low}}&deg;
+          <div class="next-5-days__label">Low</div>
+        </div>
+
+        <div class="next-5-days__high">
+          {{day2_high}}&deg;
+          <div class="next-5-days__label">High</div>
+        </div>
+
+        <div class="next-5-days__icon">
+          <img src="{{day2_pic}}" alt={{day2_text}}>
+        </div>
+        <div class="next-5-days__icon">
+          {{day2_text}}
+        </div>
+
+        <div class="next-5-days__rain">
+          {{day2_rain}}%
+          <div class="next-5-days__label">Rain</div>
+        </div>
+
+        
+      </div>
+      <div class="next-5-days__row">
+
+        <div class="next-5-days__date">
+         
+          <div class="next-5-days__label">{{day3_date}}</div>
+        </div>
+
+        <div class="next-5-days__low">
+          {{day3_low}}&deg;
+          <div class="next-5-days__label">Low</div>
+        </div>
+
+        <div class="next-5-days__high">
+          {{day3_high}}&deg;
+          <div class="next-5-days__label">High</div>
+        </div>
+
+        <div class="next-5-days__icon">
+          <img src="{{day3_pic}}" alt={{day3_text}}>
+        </div>
+
+        <div class="next-5-days__rain">
+          75%
+          <div class="next-5-days__label">Rain</div>
+        </div>
+
+        <div class="next-5-days__icon">
+          {{day3_text}}
+        </div>
+
+      </div>
+      <div class="next-5-days__row">
+
+        <div class="next-5-days__date">
+          
+          <div class="next-5-days__label">{{day4_date}}</div>
+        </div>
+
+        <div class="next-5-days__low">
+          {{day4_low}}&deg;
+          <div class="next-5-days__label">Low</div>
+        </div>
+
+        <div class="next-5-days__high">
+          {{day4_high}}&deg;
+          <div class="next-5-days__label">High</div>
+        </div>
+
+        <div class="next-5-days__icon">
+          <img src="{{day4_pic}}" alt="{{day4_text}}">
+        </div>
+
+        <div class="next-5-days__icon">
+          {{day3_text}}
+        </div>
+
+        <div class="next-5-days__rain">
+          2%
+          <div class="next-5-days__label">Rain</div>
+        </div>
+
+        
+
+      </div>
+      <div class="next-5-days__row">
+
+        <div class="next-5-days__date">
+          
+          <div class="next-5-days__label">{{day5_date}}</div>
+        </div>
+
+        <div class="next-5-days__low">
+          {{day5_low}}&deg;
+          <div class="next-5-days__label">Low</div>
+        </div>
+
+        <div class="next-5-days__high">
+          {{day5_high}}&deg;
+          <div class="next-5-days__label">High</div>
+        </div>
+
+        <div class="next-5-days__icon">
+          <img src="{{day5_pic}}" alt={{day5_text}}>
+        </div>
+
+        <div class="next-5-days__icon">
+          {{day5_text}}
+        </div>
+
+        <div class="next-5-days__rain">
+          0%
+          <div class="next-5-days__label">Rain</div>
+        </div>
+
+       
+      </div>
+
+    </div>
+  </div>
+
+</main>
+
+</body>
+</html>
